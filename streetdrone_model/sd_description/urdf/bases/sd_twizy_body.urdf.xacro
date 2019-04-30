@@ -9,7 +9,7 @@
 
 <robot name="sd_twizy" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find sd_robot)/urdf/bases/sd_twizy_body.gazebo.xacro" />
+    <xacro:include filename="$(find sd_description)/urdf/bases/sd_twizy_body.gazebo.xacro" />
 
     <xacro:macro name="sd_twizy_base" params="name">
         <xacro:property name="depth" value="2.352"/>
@@ -42,7 +42,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 1.57"/>
                 <geometry>
-                    <mesh filename="file:///$(find sd_robot)/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
+                    <mesh filename="file:///$(find sd_description)/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
 		        </geometry>
             </visual>
             <collision>

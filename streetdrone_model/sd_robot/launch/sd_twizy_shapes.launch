@@ -1,6 +1,6 @@
 <launch>
-    <env name="GAZEBO_MODEL_PATH" value="$(find sd_robot)"/>
-    <env name="GAZEBO_RESOURCE_PATH" value="$(find sd_robot)"/>
+    <env name="GAZEBO_MODEL_PATH" value="$(find sd_description)"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="$(find sd_description)"/>
     <arg name="namespace" default="sd_twizy"/>
     <arg name="debug" default="false"/>
     <arg name="gui" default="true"/>
@@ -26,7 +26,7 @@
         <arg name="world_name" value="$(find sd_robot)/worlds/shapes.world"/>
     </include>
 
-    <param command="$(find xacro)/xacro '$(find sd_robot)/urdf/sd_twizy.urdf.xacro' --inorder" name="robot_description"/>
+    <param command="$(find xacro)/xacro '$(find sd_description)/urdf/sd_twizy.urdf.xacro' --inorder" name="robot_description"/>
     <node args="-urdf -model sd_twizy -param robot_description -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
           name="urdf_spawner" output="screen" pkg="gazebo_ros" respawn="false" type="spawn_model"/>
 

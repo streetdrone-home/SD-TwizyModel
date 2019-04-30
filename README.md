@@ -43,11 +43,11 @@ catkin init
 #### D. Navigate to your workspace and build the simulation
 ```
 cd ~/catkin_ws
-catkin build sd_robot sd_control
+catkin build sd_robot sd_control sd_description
 ```
 If you have previously built your workspace with catkin_make:
 Either clean your workspace with `catkin clean` and rebuild with `catkin build`
-or build the SD Twizy Gazebo packages in isolation with `catkin_make --pkg sd_robot sd_control`.
+or build the SD Twizy Gazebo packages in isolation with `catkin_make --pkg sd_robot sd_control sd_description`.
 After the built has successfully finished, do:
 ```
 source devel/setup.bash

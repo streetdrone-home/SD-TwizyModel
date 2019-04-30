@@ -1,5 +1,5 @@
 # sd_robot
-This package contains all the files necessary for the description of the SD Twizy vehicle: meshes, robot configuration and a set of default worlds.
+This is the simulation package for the SD Twizy vehicle, containing different launch files of the model in various scenarios. It includes different gazebo world configurations and the launch file for the description of the model. 
 
 ### Sensors
 LiDAR: VLP - 16 Velodyne  
@@ -9,6 +9,7 @@ The scripts for the sensors are written based on the common scripts that exist f
 ### Launch
 The package includes three different world configurations built using the default Gazebo models.
 Every launch file automatically opens both Gazebo and rViz, using the configuration: `config/sd_twizy_rviz.rviz`
+It also includes the launch file for the model description including solely the URDF `roslaunch sd_robot sd_twizy_demo.launch`
 To launch each world:
 
 ##### A. Default

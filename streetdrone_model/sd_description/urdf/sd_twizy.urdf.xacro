@@ -13,10 +13,10 @@
     <!-- ***************** -->
     <!-- Imported elements -->
     <!-- ***************** -->
-    <xacro:include filename="$(find sd_robot)/urdf/bases/sd_twizy_body.urdf.xacro" />
-    <xacro:include filename="$(find sd_robot)/urdf/wheels/sd_twizy_suspension.urdf.xacro" />
-    <xacro:include filename="$(find sd_robot)/urdf/sensors/VLP-16.urdf.xacro"/>
-    <xacro:include filename="$(find sd_robot)/urdf/sensors/cameras.urdf.xacro"/>
+    <xacro:include filename="$(find sd_description)/urdf/bases/sd_twizy_body.urdf.xacro" />
+    <xacro:include filename="$(find sd_description)/urdf/wheels/sd_twizy_suspension.urdf.xacro" />
+    <xacro:include filename="$(find sd_description)/urdf/sensors/VLP-16.urdf.xacro"/>
+    <xacro:include filename="$(find sd_description)/urdf/sensors/cameras.urdf.xacro"/>
 
 
     <!-- *************** -->

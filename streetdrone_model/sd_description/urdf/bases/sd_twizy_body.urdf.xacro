@@ -48,8 +48,8 @@
             <collision>
                 <origin xyz="0 0 ${clearance}" rpy="-0.0135 0 1.57"/>
                 <geometry>
-                    <box size="${width} ${depth} ${height}"/>
-                </geometry>
+                    <mesh filename="file:///$(find sd_description)/meshes/SDTwizy_collision.stl" scale="0.01 0.01 0.01"/>
+		</geometry>
             </collision>
         </link>
     </xacro:macro>

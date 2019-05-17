@@ -16,7 +16,7 @@
         <xacro:property name="height" value="1.7"/>
         <xacro:property name="width" value="1.431"/>
         <xacro:property name="base_mass" value="435"/>
-        <xacro:property name="clearance" value="0.582"/>
+        <xacro:property name="clearance" value="0.281"/>
 
         <link name="vehicle_base">
             <visual>
@@ -28,7 +28,7 @@
         </link>
 
         <joint name="vehicle_base_joint" type="fixed">
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 ${clearance}" rpy="0 0 0"/>
             <parent link="vehicle_base"/>
             <child link="base_link"/>
         </joint>
@@ -40,16 +40,16 @@
                 <inertia ixx="243.175" ixy="0" ixz="0" iyy="430.166" iyz="0" izz="430.166"/>
             </inertial>
             <visual>
-                <origin xyz="0 0 0" rpy="0 0 1.57"/>
+                <origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
                 <geometry>
                     <mesh filename="file:///$(find sd_description)/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
-		        </geometry>
+		</geometry>
             </visual>
             <collision>
-                <origin xyz="0 0 ${clearance}" rpy="-0.0135 0 1.57"/>
+                <origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
                 <geometry>
-                    <box size="${width} ${depth} ${height}"/>
-                </geometry>
+                    <mesh filename="file:///$(find sd_description)/meshes/SDTwizy_collision.stl" scale="0.01 0.01 0.01"/>
+		</geometry>
             </collision>
         </link>
     </xacro:macro>

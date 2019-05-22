@@ -3,8 +3,13 @@
     <rosparam file="$(find sd_control)/config/sd_twizy_control.yaml"/>
 
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-          output="screen" ns="/sd_twizy" args="--shutdown-time 1 --namespace=/sd_twizy  front_right_steer_joint_controller  front_right_wheel_joint_controller  front_left_steer_joint_controller  rear_left_wheel_joint_controller
-           rear_right_wheel_joint_controller  front_left_wheel_joint_controller   joint_read_state_controller" />
+          output="screen" ns="/sd_twizy"
+          args="--shutdown-time 1 --namespace=/sd_twizy
+                front_left_steer_joint_controller
+                front_right_steer_joint_controller
+                rear_left_wheel_joint_controller
+                rear_right_wheel_joint_controller
+                joint_read_state_controller" />
 
     <!-- convert joint states to TF transforms for rviz, etc -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"

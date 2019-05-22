@@ -183,16 +183,6 @@
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
         </transmission>
-
-        <transmission name="front_left_rear_axle_trans">
-            <type>transmission_interface/SimpleTransmission</type>
-            <joint name="front_left_wheel_joint">
-                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="front_left_rear_axle_act">
-                <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-        </transmission>
     </xacro:macro>
 
     <xacro:macro name="FR_wheel">
@@ -217,16 +207,6 @@
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </joint>
             <actuator name="front_right_steer_joint_act">
-                <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-        </transmission>
-
-        <transmission name="front_right_rear_axle_trans">
-            <type>transmission_interface/SimpleTransmission</type>
-            <joint name="front_right_wheel_joint">
-                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="front_right_rear_axle_act">
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
         </transmission>

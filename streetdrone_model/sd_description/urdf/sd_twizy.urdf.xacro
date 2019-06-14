@@ -9,6 +9,11 @@
 
 <robot name="sd_twizy" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <gazebo>
+    <plugin name="sd_control" filename="libSdControlPlugin.so">
+    </plugin>
+  </gazebo>
+
 
     <!-- ***************** -->
     <!-- Imported elements -->

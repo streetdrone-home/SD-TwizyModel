@@ -9,14 +9,14 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-   <gazebo>
-        <plugin name="p3d" filename="libgazebo_ros_p3d.so">
-            <bodyName>base_link</bodyName>
-            <topicName>base_pose_ground_truth</topicName>
-            <frameName>map</frameName>
-            <updateRate>100.0</updateRate>
-        </plugin>
-    </gazebo>
+  <gazebo>
+    <plugin name="p3d" filename="libgazebo_ros_p3d.so">
+      <bodyName>base_link</bodyName>
+      <topicName>base_pose_ground_truth</topicName>
+      <frameName>map</frameName>
+      <updateRate>100.0</updateRate>
+    </plugin>
+  </gazebo>
 
   <!-- ros control plugin -->
   <xacro:macro name="ros_control">

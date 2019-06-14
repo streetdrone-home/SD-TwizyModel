@@ -17,6 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
   	tf
 )
 
+find_package(gazebo 8 REQUIRED)
+
 catkin_package(
  CATKIN_DEPENDS ackermann_msgs
 )
@@ -33,6 +35,18 @@ install(DIRECTORY config/
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${GAZEBO_INCLUDE_DIRS}
+  include/
+  )
+
+add_library(SdControlPlugin SHARED src/sd_control_plugin.cpp)
+target_link_libraries(SdControlPlugin ${GAZEBO_LIBRARIES})
+add_dependencies(SdControlPlugin ${catkin_EXPORTED_TARGETS})
+
+install(TARGETS SdControlPlugin
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 add_executable(sd_control_node src/robot_control.cpp)

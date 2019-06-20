@@ -1,11 +1,12 @@
 #ifndef SD_CONTROL__SD_CONTROL_PLUGIN_HPP
 #define SD_CONTROL__SD_CONTROL_PLUGIN_HPP
 
+#include <gazebo/common/PID.hh>
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/transport/transport.hh>
 
 #include <ros/ros.h>
-#include <std_msgs/UInt8.h>
+#include <sd_control_msgs/Control.h>
 
 namespace sd_control
 {
@@ -18,18 +19,13 @@ namespace sd_control
     void Load(gazebo::physics::ModelPtr model, sdf::ElementPtr sdf);
 
   private:
-    double fl_wheel_radius_;
-    double fr_wheel_radius_;
-    double bl_wheel_radius_;
-    double br_wheel_radius_;
-
     std::string robot_namespace_;
 
     gazebo::physics::ModelPtr model_;
     gazebo::physics::WorldPtr world_;
     gazebo::transport::NodePtr gznode_;
 
-    gazebo::physics::LinkPtr chassis_link;
+    gazebo::physics::LinkPtr chassis_link_;
 
     gazebo::physics::JointPtr fl_wheel_joint_;
     gazebo::physics::JointPtr fr_wheel_joint_;
@@ -38,15 +34,38 @@ namespace sd_control
     gazebo::physics::JointPtr fl_wheel_steering_joint_;
     gazebo::physics::JointPtr fr_wheel_steering_joint_;
 
-    ros::Subscriber throttle_sub_;
-    ros::Subscriber steer_sub_;
+    gazebo::common::PID fl_wheel_steering_pid_;
+    gazebo::common::PID fr_wheel_steering_pid_;
 
-    double steer_cmd_;
-    double throttle_cmd_;
-    
-    void throttleCallback(const std_msgs::UInt8 & msg);
-    void steerCallback(const std_msgs::UInt8 & msg);
+    double fl_wheel_radius_;
+    double fr_wheel_radius_;
+    double bl_wheel_radius_;
+    double br_wheel_radius_;
 
+    double front_track_width_;
+    double back_track_width_;
+    double wheel_base_length_;
+
+    double max_steer_;
+    double max_speed_;
+    double max_torque_;
+    double front_brake_torque_;
+    double back_brake_torque_;
+
+    ros::Subscriber control_sub_;
+
+    gazebo::common::Time last_sim_time_;
+
+    sd_control_msgs::Control control_cmd_;
+
+    std::mutex mutex_;
+
+    gazebo::event::ConnectionPtr update_connection_;
+    void Update();
+
+    void controlCallback(const sd_control_msgs::Control & msg);
+
+    double collisionRadius(gazebo::physics::CollisionPtr coll) const;
   };
 
 }

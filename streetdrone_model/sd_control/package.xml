@@ -22,9 +22,12 @@
   <build_depend>tf</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>std_srvs</build_depend>
+  <build_depend>sd_control_msgs</build_depend>
+
   <build_export_depend>controller_manager</build_export_depend>
   <build_export_depend>joint_state_controller</build_export_depend>
   <build_export_depend>robot_state_publisher</build_export_depend>
+
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
@@ -38,6 +41,7 @@
   <exec_depend>tf</exec_depend>
   <exec_depend>std_srvs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sd_control_msgs</exec_depend>
 
   <export>
       <gazebo_ros gazebo_plugin_path="${prefix}/lib" gazebo_model_path="${prefix}/.."/>

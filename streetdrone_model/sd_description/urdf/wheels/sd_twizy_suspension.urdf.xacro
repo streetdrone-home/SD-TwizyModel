@@ -17,7 +17,7 @@ All rights reserved
   <xacro:property name = "front_wheel_mass" value="9.14"/>
   <xacro:property name = "front_tyre_width" value="0.125"/>
 
-  <xacro:property name = "friction_dry_mu" value="0.85"/>
+  <xacro:property name = "friction_dry_mu" value="0.95"/>
   <xacro:property name = "friction_wet_mu" value="0.4"/>
 
   <xacro:property name = "degrees_90" value="1.57079633"/>

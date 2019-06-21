@@ -75,6 +75,7 @@ namespace sd_control
     max_torque_ = findParameter("max_torque", 57.0);
     front_brake_torque_ = findParameter("front_brake_torque", 500.0);
     back_brake_torque_ = findParameter("back_brake_torque", 500.0);
+    chassis_aero_force_gain_ = findParameter("chassis_aero_force_gain", 1.0);
 
     fl_wheel_steering_pid_.SetPGain(findParameter("fl_wheel_steering_p_gain", 0.0));
     fl_wheel_steering_pid_.SetIGain(findParameter("fl_wheel_steering_i_gain", 0.0));
@@ -154,6 +155,11 @@ namespace sd_control
     auto br_wheel_angular_velocity = br_wheel_joint_->GetVelocity(0);
 
     auto chassis_linear_velocity = chassis_link_->WorldCoGLinearVel();
+
+    auto drag_force = -chassis_aero_force_gain_
+      * chassis_linear_velocity.SquaredLength()
+      * chassis_linear_velocity.Normalized();
+    chassis_link_->AddForce(drag_force);
 
     auto steer_ratio = std::max(-100.0, std::min(100.0, control_cmd_.steer)) / 100.0;
     auto steer_angle = steer_ratio * max_steer_;

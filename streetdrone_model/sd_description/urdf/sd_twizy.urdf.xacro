@@ -81,9 +81,10 @@ All rights reserved
       <fl_wheel_steering_d_gain>3e2</fl_wheel_steering_d_gain>
       <fr_wheel_steering_d_gain>3e2</fr_wheel_steering_d_gain>
       <max_speed>22</max_speed>
-      <max_torque>526</max_torque>
-      <front_brake_torque>526</front_brake_torque>
-      <back_brake_torque>526</back_brake_torque>
+      <max_torque>250</max_torque>
+      <front_brake_torque>260</front_brake_torque>
+      <back_brake_torque>260</back_brake_torque>
+      <chassis_aero_force_gain>0.63045</chassis_aero_force_gain>
     </plugin>
   </gazebo>
 

@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
 project(sd_control)
+
+set (CMAKE_CXX_STANDARD 11)
 
 find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
@@ -44,16 +46,16 @@ add_library(SdControlPlugin SHARED src/sd_control_plugin.cpp)
 target_link_libraries(SdControlPlugin ${GAZEBO_LIBRARIES})
 add_dependencies(SdControlPlugin ${catkin_EXPORTED_TARGETS})
 
-install(TARGETS SdControlPlugin
+add_executable(sd_teleop_joy src/sd_teleop_joy.cpp src/sd_teleop_joy_node.cpp)
+
+target_link_libraries(sd_teleop_joy
+  ${catkin_LIBRARIES})
+
+install(TARGETS SdControlPlugin sd_teleop_joy
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-add_executable(sd_control_node src/robot_control.cpp)
-
-target_link_libraries(sd_control_node
-   ${catkin_LIBRARIES}
-)
-
-
+catkin_install_python(PROGRAMS nodes/Twist_to_Ackermann.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

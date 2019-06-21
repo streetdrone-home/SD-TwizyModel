@@ -51,6 +51,7 @@ namespace sd_control
     double max_torque_;
     double front_brake_torque_;
     double back_brake_torque_;
+    double chassis_aero_force_gain_;
 
     ros::Subscriber control_sub_;
 

@@ -1,6 +1,8 @@
 #include "sd_control/sd_control_plugin.hpp"
 
 #include <gazebo/physics/physics.hh>
+#include <nav_msgs/Odometry.h>
+#include <tf/tf.h>
 
 namespace sd_control
 {
@@ -34,6 +36,8 @@ namespace sd_control
     control_sub_ = nh.subscribe(
       "/sd_control", 10, &SdControlPlugin::controlCallback, this
       );
+
+    odometry_pub_ = nh.advertise<nav_msgs::Odometry>("/odom", 1);
 
     // Find joints and links
     auto findLink = [&](std::string const& link_name) {
@@ -211,7 +215,55 @@ namespace sd_control
     bl_wheel_joint_->SetForce(0, throttle_torque);
     br_wheel_joint_->SetForce(0, throttle_torque);
 
+    publishOdometry();
+
     last_sim_time_ = cur_time;
+  }
+
+  void SdControlPlugin::publishOdometry()
+  {
+    auto current_time = ros::Time::now();
+    auto pose = model_->WorldPose();
+
+    // Global rotation and translation
+    auto qt = tf::Quaternion ( pose.Rot().X(), pose.Rot().Y(), pose.Rot().Z(), pose.Rot().W() );
+    auto vt = tf::Vector3 ( pose.Pos().X(), pose.Pos().Y(), pose.Pos().Z() );
+
+    auto odom = nav_msgs::Odometry{};
+
+    odom.pose.pose.position.x = vt.x();
+    odom.pose.pose.position.y = vt.y();
+    odom.pose.pose.position.z = vt.z();
+
+    odom.pose.pose.orientation.x = qt.x();
+    odom.pose.pose.orientation.y = qt.y();
+    odom.pose.pose.orientation.z = qt.z();
+    odom.pose.pose.orientation.w = qt.w();
+
+    // get velocity in /odom frame
+    ignition::math::Vector3d linear;
+    linear = model_->WorldLinearVel();
+    odom.twist.twist.angular.z = model_->WorldAngularVel().Z();
+
+    // convert velocity to child_frame_id
+    float yaw = pose.Rot().Yaw();
+    odom.twist.twist.linear.x = cosf ( yaw ) * linear.X() + sinf ( yaw ) * linear.Y();
+    odom.twist.twist.linear.y = cosf ( yaw ) * linear.Y() - sinf ( yaw ) * linear.X();
+
+    // set covariance
+    odom.pose.covariance[0] = 0.00001;
+    odom.pose.covariance[7] = 0.00001;
+    odom.pose.covariance[14] = 1000000000000.0;
+    odom.pose.covariance[21] = 1000000000000.0;
+    odom.pose.covariance[28] = 1000000000000.0;
+    odom.pose.covariance[35] = 0.001;
+
+    // set header
+    odom.header.stamp = current_time;
+    odom.header.frame_id = "odom";
+    odom.child_frame_id = "base_link";
+
+    odometry_pub_.publish(odom);
   }
 
   double SdControlPlugin::collisionRadius(gazebo::physics::CollisionPtr coll) const

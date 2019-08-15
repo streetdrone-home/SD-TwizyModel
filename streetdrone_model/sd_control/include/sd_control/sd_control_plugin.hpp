@@ -54,6 +54,7 @@ namespace sd_control
     double chassis_aero_force_gain_;
 
     ros::Subscriber control_sub_;
+    ros::Publisher odometry_pub_;
 
     gazebo::common::Time last_sim_time_;
 
@@ -63,6 +64,8 @@ namespace sd_control
 
     gazebo::event::ConnectionPtr update_connection_;
     void Update();
+
+    void publishOdometry();
 
     void controlCallback(const sd_control_msgs::Control & msg);
 

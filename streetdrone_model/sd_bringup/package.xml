@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sd_bringup</name>
+  <version>0.3.0</version>
+  <description>The sd_bringup package</description>
+
+  <maintainer email="efimia@streetdrone.com">Efimia Panagiotaki</maintainer>
+
+  <author email="sgvandijk@gmail.com">Sander van Dijk</author>
+  
+  <license>Apache 2</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>sd_description</exec_depend>
+  <exec_depend>sd_control</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  
+  <export>
+  </export>
+</package>

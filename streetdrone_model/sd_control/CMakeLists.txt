@@ -5,26 +5,15 @@ set (CMAKE_CXX_STANDARD 11)
 
 find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
-  sd_robot
-  std_msgs
-  std_srvs
-  controller_manager
-  joint_state_controller
-  robot_state_publisher
-  ackermann_msgs
-  geometry_msgs
-  nav_msgs
   roscpp
-  sensor_msgs
   tf
+  nav_msgs
   sd_control_msgs
 )
 
-find_package(gazebo 8 REQUIRED)
+find_package(gazebo 9 REQUIRED)
 
-catkin_package(
- CATKIN_DEPENDS ackermann_msgs
-)
+catkin_package()
 
 install(DIRECTORY launch/
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
@@ -56,6 +45,3 @@ install(TARGETS SdControlPlugin sd_teleop_joy
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
-catkin_install_python(PROGRAMS nodes/Twist_to_Ackermann.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

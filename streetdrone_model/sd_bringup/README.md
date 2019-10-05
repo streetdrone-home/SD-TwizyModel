@@ -1,5 +1,7 @@
-# sd_robot
-This is the simulation package for the SD Twizy vehicle, containing different launch files of the model in various scenarios. It includes different gazebo world configurations and the launch file for the description of the model. 
+# sd_bringup
+This package contains configuration files to run the SD Twizy vehicle
+in various scenarios. It includes different gazebo world
+configurations and launch files for the description of the model.
 
 ### Sensors
 LiDAR: VLP - 16 Velodyne  

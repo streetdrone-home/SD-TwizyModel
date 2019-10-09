@@ -36,6 +36,7 @@ target_link_libraries(SdControlPlugin ${GAZEBO_LIBRARIES})
 add_dependencies(SdControlPlugin ${catkin_EXPORTED_TARGETS})
 
 add_executable(sd_teleop_joy src/sd_teleop_joy.cpp src/sd_teleop_joy_node.cpp)
+add_dependencies(sd_teleop_joy ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(sd_teleop_joy
   ${catkin_LIBRARIES})

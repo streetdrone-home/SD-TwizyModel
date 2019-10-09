@@ -31,6 +31,7 @@
           name="urdf_spawner" output="screen" pkg="gazebo_ros" respawn="false" type="spawn_model"/>
 
     <include file = "$(find sd_control)/launch/sd_twizy_control.launch"/>
+
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
 
 </launch>

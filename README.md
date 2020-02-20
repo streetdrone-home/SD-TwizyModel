@@ -19,7 +19,7 @@ Make sure all required dependecies are installed using
 catkin workspace run (assuming this repository is cloned directly
 under `src`):
 ```
-rosdep update && rosdep install --from-paths src/sd_twizymodel/ --ignore-src -r -y
+rosdep update && rosdep install --from-paths src/SD-TwizyModel/ --ignore-src -r -y
 ```
 
 Now you can build the packages in this repository. `catkin_make`,

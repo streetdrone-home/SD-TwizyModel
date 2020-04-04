@@ -56,7 +56,8 @@ roslaunch sd_bringup sd_twizy_gazebo.launch
 </p>
 
 There are several more launch files included to provide a more
-interesting surrounding for the vehicle; try for instance:
+interesting surrounding for the vehicle (see known issues below to
+make sure they work); try for instance:
 
 ```
 roslaunch sd_bringup sd_twizy_gazebo_default.launch
@@ -73,6 +74,16 @@ To only launch the model in an already running instance of Gazebo, do:
 ```
 roslaunch sd_bringup sd_twizy_spawn.launch
 ```
+
+#### Known Issues:
+
+* `[Err] [REST.cc:205] Error in REST request` - this is a known error
+    in Gazebo 9. To fix it, edit `~/.ignition/fuel/config.yaml` and
+    change the server URL in there from https://api.ignitionfuel.org
+    to https://api.ignitionrobotics.org
+* `Couldn't open joystick force feedback!` - this error is non-fatal
+    and can be ignored. It's a common error in the `joystick_drivers`
+    node
 
 ## Controlling the Robot
 ### Joystick

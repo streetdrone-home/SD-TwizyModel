@@ -70,10 +70,16 @@ roslaunch sd_bringup sd_twizy_large_city.launch
 ```
 
 ### Display the robot only in Gazebo
-To only launch the model in an already running instance of Gazebo, do:
-```
-roslaunch sd_bringup sd_twizy_spawn.launch
-```
+
+You can use the `sd_twizy_spawn.launch` to only launch the model in an
+already running instance of Gazebo. For instance, open an empty world
+model:
+
+    roslaunch gazebo_ros empty_world.launch
+
+and then launch the model with:
+
+    roslaunch sd_bringup sd_twizy_spawn.launch
 
 #### Known Issues:
 

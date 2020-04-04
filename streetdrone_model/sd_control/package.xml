@@ -22,6 +22,7 @@
   <exec_depend>tf</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>sd_control_msgs</exec_depend>
+  <exec_depend>joy</exec_depend>
 
   <export>
       <gazebo_ros gazebo_plugin_path="${prefix}/lib" gazebo_model_path="${prefix}/.."/>

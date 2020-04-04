@@ -6,27 +6,31 @@ Gazebo simulation packages for the SD Twizy vehicle
 
 - Ubuntu 18.04 LTS
 - ROS Melodic [ros-melodic-desktop-full](http://wiki.ros.org/melodic/Installation/Ubuntu)
-- Gazebo, including dev packages [ros-melodic-gazebo-ros-pkgs, ros-melodic-gazebo-dev](http://gazebosim.org/tutorials?tut=ros_installing)
 
 This model, specifically the Gazebo plugin that implements the control
 interface, requires Gazebo 9, which is the default version for ROS
-Melodic.
+Melodic, and will be installed with `rosdep` below.
 
 ## Building
 
-Make sure all required dependecies are installed using
-[`rosdep`](http://wiki.ros.org/rosdep). From the top directory of your
-catkin workspace run (assuming this repository is cloned directly
-under `src`):
-```
-rosdep update && rosdep install --from-paths src/SD-TwizyModel/ --ignore-src -r -y
-```
+* Go to the `src` directory of your workspace and clone this
+  repository or copy its contents.
+* When using Git, check out this branch:
 
-Now you can build the packages in this repository. `catkin_make`,
-[`catkin_tools`](https://catkin-tools.readthedocs.io/en/latest/installing.html)
-and
-[`colcon`](https://catkin-tools.readthedocs.io/en/latest/installing.html)
-should all work.
+        cd SD-TwizyModel && git checkout melodic
+
+* Make sure all required dependecies are installed using
+  [`rosdep`](http://wiki.ros.org/rosdep). From the top directory of
+  your catkin workspace run (assuming this repository is cloned
+  directly under `src`):
+
+        rosdep update && rosdep install --from-paths src/SD-TwizyModel/ --ignore-src -r -y
+
+  Now you can build the packages in this repository. `catkin_make`,
+  [`catkin_tools`](https://catkin-tools.readthedocs.io/en/latest/installing.html)
+  and
+  [`colcon`](https://catkin-tools.readthedocs.io/en/latest/installing.html)
+  should all work.
 
 ### Autoware
 

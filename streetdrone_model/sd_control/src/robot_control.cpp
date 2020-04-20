@@ -1,7 +1,10 @@
 /*
  * robot_control
- * Copyright (c) 2015, Robotnik Automation, SLL
+ * Copyright (c) 2019, StreetDrone Ltd
  * All rights reserved.
+ *
+ * Based on original work of Robotnik Automation for the RBCAR robot
+ * The source code has been altered to work with the SD-TwizyModel
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -27,10 +30,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * \author Robotnik
- * \brief Controller for an ackermann car robot in ackermann-steering (single)
-    Control steering (2 direction axes) and traction axes (4W) of the RBCAR single Ackerman drive kinematics
-    transforms the commands received from the controller in motor position / velocity commands
  */
 
 #include <ros/ros.h>

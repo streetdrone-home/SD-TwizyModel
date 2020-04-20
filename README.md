@@ -8,8 +8,8 @@ Gazebo simulation packages for the SD Twizy vehicle
 ##### - ROS Kinetic [ros-kinetic-desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 ##### - Catkin Command Line Tools [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/installing.html)
 ##### - Gazebo [ros-kinetic-gazebo-ros-pkgs](http://gazebosim.org/tutorials?tut=ros_installing)  
-This model has been tested with Gazebo 7.14.0. Run `gazebo --version` to make sure you have the correct version installed.  
-To update to Gazebo 7.14.0, do:  
+This model has been tested with Gazebo 7.16. Run `gazebo --version` to make sure you have the correct version installed.  
+To update to Gazebo 7.16, do:  
 ```
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
 wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
@@ -88,10 +88,6 @@ To control the vehicle, keep the Back button (Index 8) pressed and use the Start
 #### Keyboard:
 To install the ROS package [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard), do: `sudo apt-get install ros-kinetic-teleop-twist-keyboard`.  
 To launch the ROS package, do: `rosrun teleop_twist_keyboard teleop_twist_keyboard.py `
-
-#### Autoware:
-Autoware is a ROS-based open-source software, enabling self-driving mobility to be deployed in open city areas. For more information you can visit the [wiki](https://github.com/CPFL/Autoware/wiki) page
-Autoware publishes the `twist_cmd` topic [geometry_msgs/TwistStamped](http://docs.ros.org/jade/api/geometry_msgs/html/msg/TwistStamped.html)
 
 ### Display the robot only in rviz:
 First, make sure you have rviz installed, by doing:

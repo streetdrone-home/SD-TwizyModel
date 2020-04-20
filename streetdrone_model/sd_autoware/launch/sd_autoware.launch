@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Throttle PID control -->
+  <!-- Create throttle setpoint topic from Autoware ctrl_cmd topic -->
+  <node pkg="topic_tools" type="transform" name="setpoint_linear_velocity" args="--wait-for-start /ctrl_cmd /setpoint/linear_velocity std_msgs/Float64 'm.cmd.linear_velocity'"/>
+
+  <!-- Create throttle state topic -->
+  <node pkg="topic_tools" type="transform" name="state_linear_velocity" args="--wait-for-start /odom /state/linear_velocity std_msgs/Float64 'm.twist.twist.linear.x'"/>
+
+  <!-- Throttle PID controller -->
+  <node name="throttle_pid" pkg="pid" type="controller" ns="sd_throttle">
+    <param name="Kp" value="100.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="1" />
+    <param name="upper_limit" value="100" />
+    <param name="lower_limit" value="-100" />
+    <param name="windup_limit" value="100" />
+    <param name="max_loop_frequency" value="100.0" />
+    <param name="min_loop_frequency" value="100.0" />
+    <remap from="state" to="/state/linear_velocity" />
+    <remap from="setpoint" to="/setpoint/linear_velocity" />
+  </node>
+
+  <!-- Translate control and PID output into streetdrone command -->
+  <node pkg="sd_autoware" type="sd_autoware.py" name="sd_autoware"/>
+
+</launch>

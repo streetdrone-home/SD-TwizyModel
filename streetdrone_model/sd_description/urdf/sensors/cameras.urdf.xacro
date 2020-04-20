@@ -7,8 +7,8 @@
   All rights reserved
 -->
 
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sekonix_camera">
-    <xacro:macro name="sekonix_camera" params="frlr_prefix lrc_prefix *origin">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="blackfly_camera">
+    <xacro:macro name="blackfly_camera" params="frlr_prefix lrc_prefix *origin">
 
         <joint name="${frlr_prefix}_${lrc_prefix}_camera_joint" type="fixed">
             <axis xyz="0 1 0" />
@@ -62,8 +62,8 @@
                 <camera name="head">
                     <horizontal_fov>2.09</horizontal_fov>
                     <image>
-                        <width>1928</width>
-                        <height>1208</height>
+                        <width>1920</width>
+                        <height>1200</height>
                         <format>R8G8B8</format>
                     </image>
                     <clip>

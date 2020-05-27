@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>sd_robot</name>
-  <version>0.1.0</version>
+  <version>2.1.0</version>
   <description>The sd_robot package</description>
 
   <maintainer email="efimia@streetdrone.com">Efimia Panagiotaki</maintainer>
+  <maintainer email="fionan@streetdrone.com">Fionán O'Sullivan</maintainer>
 
   <license>Apache 2</license>
 
@@ -26,12 +27,6 @@
   <exec_depend>urdf</exec_depend>
   <exec_depend>xacro</exec_depend>
   <exec_depend>tf</exec_depend>
-  <exec_depend>velodyne-simulator</exec_depend>
-  <exec_depend>effort-controller</exec_depend>
-  <exec_depend>velocity-controllers</exec_depend>
-  <exec_depend>joint-state-controller</exec_depend>
-  <exec_depend>gazebo-ros-control</exec_depend>
-  <exec_depend>controller-manager</exec_depend>
 
   <export>
   </export>

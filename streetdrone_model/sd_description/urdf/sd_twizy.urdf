@@ -4,49 +4,39 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <!--
-  Copyright (c) 2019 StreetDrone Limited
-  Author:  Efimia Panagiotaki
+Copyright (c) 2020 StreetDrone Limited
+Author:  Efimia Panagiotaki
 
-  All rights reserved
+All rights reserved
 -->
 <robot name="sd_twizy" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <gazebo>
-    <plugin filename="libgazebo_ros_p3d.so" name="p3d">
-      <bodyName>base_link</bodyName>
-      <topicName>base_pose_ground_truth</topicName>
-      <frameName>map</frameName>
-      <updateRate>100.0</updateRate>
-    </plugin>
-  </gazebo>
-  <gazebo reference="base_link">
-    --&gt;
-        
+  <gazebo reference="chassis">
     <material>Gazebo/Green</material>
   </gazebo>
   <gazebo reference="front_left_wheel">
-    <mu1 value="1"/>
-    <mu2 value="1"/>
+    <mu1 value="0.95"/>
+    <mu2 value="0.95"/>
     <minDepth>0.005</minDepth>
     <kp>1e8</kp>
     <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="front_right_wheel">
-    <mu1 value="1"/>
-    <mu2 value="1"/>
+    <mu1 value="0.95"/>
+    <mu2 value="0.95"/>
     <minDepth>0.005</minDepth>
     <kp>1e8</kp>
     <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="rear_left_wheel">
-    <mu1 value="1"/>
-    <mu2 value="1"/>
+    <mu1 value="0.95"/>
+    <mu2 value="0.95"/>
     <minDepth>0.005</minDepth>
     <kp>1e8</kp>
     <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="rear_right_wheel">
-    <mu1 value="1"/>
-    <mu2 value="1"/>
+    <mu1 value="0.95"/>
+    <mu2 value="0.95"/>
     <minDepth>0.005</minDepth>
     <kp>1e8</kp>
     <material>Gazebo/Black</material>
@@ -137,7 +127,7 @@
       <material name="tire_mat"/>
     </visual>
   </link>
-  <link name="vehicle_base">
+  <link name="base_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -145,12 +135,12 @@
       </geometry>
     </visual>
   </link>
-  <joint name="vehicle_base_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.281"/>
-    <parent link="vehicle_base"/>
-    <child link="base_link"/>
+  <joint name="chassis_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.843 0 0"/>
+    <parent link="base_link"/>
+    <child link="chassis"/>
   </joint>
-  <link name="base_link">
+  <link name="chassis">
     <inertial>
       <mass value="435"/>
       <origin xyz="0 0 0"/>
@@ -159,58 +149,32 @@
     <visual>
       <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/SDTwizy_collision.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/SDTwizy_collision.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
   </link>
-  <gazebo>
-    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>/sd_twizy</robotNamespace>
-      <controlPeriod>0.001</controlPeriod>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>true</legacyModeNS>
-    </plugin>
-  </gazebo>
   <joint name="rear_left_wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="rear_left_wheel"/>
-    <origin rpy="1.57079633 0 3.14159265" xyz="-0.843 -0.54 0"/>
+    <origin rpy="1.57079633 0 0" xyz="0 -0.54 0"/>
     <axis xyz="0 0 -1"/>
   </joint>
-  <transmission name="rear_left_rear_axle_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="rear_left_wheel_joint">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="rear_left_rear_axle_act">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
   <joint name="rear_right_wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="rear_right_wheel"/>
-    <origin rpy="1.57079633 0 3.14159265" xyz="-0.843 0.54 0"/>
+    <origin rpy="1.57079633 0 0" xyz="0 0.54 0"/>
     <axis xyz="0 0 -1"/>
   </joint>
-  <transmission name="rear_right_rear_axle_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="rear_right_wheel_joint">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="rear_right_rear_axle_act">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
   <joint name="front_left_steer_joint" type="revolute">
     <parent link="base_link"/>
     <child link="front_left_axle"/>
-    <origin rpy="1.57079633 0 3.14159265" xyz="0.843 -0.54 0"/>
+    <origin rpy="1.57079633 0 3.14159265" xyz="1.686 -0.54 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="500000" lower="-0.785398" upper="0.785398" velocity="250"/>
   </joint>
@@ -220,28 +184,10 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
   </joint>
-  <transmission name="front_left_steer_joint_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="front_left_steer_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="front_left_steer_joint_act">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="front_left_rear_axle_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="front_left_wheel_joint">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="front_left_rear_axle_act">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
   <joint name="front_right_steer_joint" type="revolute">
     <parent link="base_link"/>
     <child link="front_right_axle"/>
-    <origin rpy="1.57079633 0 3.14159265" xyz="0.843 0.54 0"/>
+    <origin rpy="1.57079633 0 3.14159265" xyz="1.686 0.54 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="500000" lower="-0.785398" upper="0.785398" velocity="250"/>
   </joint>
@@ -251,27 +197,9 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
   </joint>
-  <transmission name="front_right_steer_joint_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="front_right_steer_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="front_right_steer_joint_act">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="front_right_rear_axle_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="front_right_wheel_joint">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="front_right_rear_axle_act">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
   <joint name="velodyne_base_mount_joint" type="fixed">
     <origin rpy="0 -0.0261799387799 0" xyz="-0.681 0 1.445"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="velodyne_base_link"/>
   </joint>
   <link name="velodyne_base_link">
@@ -282,12 +210,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/VLP16_base_1.dae"/>
+        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/VLP16_base_1.dae"/>
       </geometry>
     </visual>
     <visual>
       <geometry>
-        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/VLP16_base_2.dae"/>
+        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/VLP16_base_2.dae"/>
       </geometry>
     </visual>
     <collision>
@@ -311,7 +239,7 @@
     <visual>
       <origin xyz="0 0 -0.0377"/>
       <geometry>
-        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/VLP16_scan.dae"/>
+        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/VLP16_scan.dae"/>
       </geometry>
     </visual>
   </link>
@@ -359,7 +287,7 @@
   <joint name="front_left_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.087 0" xyz="-0.04 0.12 1.3"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="front_left_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -384,10 +312,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="front_left_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="front_left_camera_link"/>
     <child link="front_left_camera_link_optical"/>
@@ -402,8 +330,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -413,8 +341,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -427,8 +355,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>front_left_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -445,7 +373,7 @@
   <joint name="front_right_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.087 0" xyz="-0.04 -0.12 1.3"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="front_right_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -470,10 +398,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="front_right_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="front_right_camera_link"/>
     <child link="front_right_camera_link_optical"/>
@@ -488,8 +416,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -499,8 +427,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -513,8 +441,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>front_right_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -531,7 +459,7 @@
   <joint name="front_center_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.087 0" xyz="-0.04 0 1.3"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="front_center_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -556,10 +484,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="front_center_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="front_center_camera_link"/>
     <child link="front_center_camera_link_optical"/>
@@ -574,8 +502,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -585,8 +513,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -599,8 +527,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>front_center_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -617,7 +545,7 @@
   <joint name="rear_center_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.2618 3.14" xyz="-1.26 0 1.28"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="rear_center_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -642,10 +570,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="rear_center_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="rear_center_camera_link"/>
     <child link="rear_center_camera_link_optical"/>
@@ -660,8 +588,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -671,8 +599,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -685,8 +613,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>rear_center_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -703,7 +631,7 @@
   <joint name="right_forward_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.244 -1.12" xyz="-0.95 -0.42 1.2"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="right_forward_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -728,10 +656,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="right_forward_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="right_forward_camera_link"/>
     <child link="right_forward_camera_link_optical"/>
@@ -746,8 +674,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -757,8 +685,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -771,8 +699,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>right_forward_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -789,7 +717,7 @@
   <joint name="right_rearward_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.244 -2.18" xyz="-1.05 -0.42 1.2"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="right_rearward_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -814,10 +742,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="right_rearward_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="right_rearward_camera_link"/>
     <child link="right_rearward_camera_link_optical"/>
@@ -832,8 +760,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -843,8 +771,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -857,8 +785,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>right_rearward_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -875,7 +803,7 @@
   <joint name="left_forward_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.2967 1.12" xyz="-0.95 0.4 1.2"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="left_forward_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -900,10 +828,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="left_forward_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="left_forward_camera_link"/>
     <child link="left_forward_camera_link_optical"/>
@@ -918,8 +846,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -929,8 +857,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -943,8 +871,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>left_forward_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -961,7 +889,7 @@
   <joint name="left_rearward_camera_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin rpy="0 0.2967 2.18" xyz="-1.05 0.39 1.2"/>
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="left_rearward_camera_link"/>
   </joint>
   <!-- Camera -->
@@ -986,10 +914,10 @@
     </inertial>
   </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
+         so that ros and opencv can operate on the camera frame correctly -->
   <joint name="left_rearward_camera_optical_joint" type="fixed">
     <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
+           won't be aligned properly with the frame it is supposedly originating from -->
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
     <parent link="left_rearward_camera_link"/>
     <child link="left_rearward_camera_link_optical"/>
@@ -1004,8 +932,8 @@
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1920</width>
-          <height>1200</height>
+          <width>1928</width>
+          <height>1208</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -1015,8 +943,8 @@
         <noise>
           <type>gaussian</type>
           <!-- Noise is sampled independently per pixel on each frame.
-                             That pixel's noise value is added to each of its color
-                             channels, which at that point lie in the range [0,1]. -->
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -1029,8 +957,8 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>left_rearward_camera_link_optical</frameName>
         <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
-                        between the gazebo sensor image and the frame it is supposed to
-                        be attached to -->
+               between the gazebo sensor image and the frame it is supposed to
+               be attached to -->
         <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -1043,5 +971,43 @@
         <focalLength>0.0</focalLength>
       </plugin>
     </sensor>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libSdControlPlugin.so" name="sd_control">
+      <chassis>base_link</chassis>
+      <front_left_wheel>front_left_wheel_joint</front_left_wheel>
+      <front_right_wheel>front_right_wheel_joint</front_right_wheel>
+      <front_left_wheel_steering>front_left_steer_joint</front_left_wheel_steering>
+      <front_right_wheel_steering>front_right_steer_joint</front_right_wheel_steering>
+      <back_left_wheel>rear_left_wheel_joint</back_left_wheel>
+      <back_right_wheel>rear_right_wheel_joint</back_right_wheel>
+      <fl_wheel_steering_p_gain>1e4</fl_wheel_steering_p_gain>
+      <fr_wheel_steering_p_gain>1e4</fr_wheel_steering_p_gain>
+      <fl_wheel_steering_i_gain>0</fl_wheel_steering_i_gain>
+      <fr_wheel_steering_i_gain>0</fr_wheel_steering_i_gain>
+      <fl_wheel_steering_d_gain>3e2</fl_wheel_steering_d_gain>
+      <fr_wheel_steering_d_gain>3e2</fr_wheel_steering_d_gain>
+      <max_speed>22</max_speed>
+      <max_torque>250</max_torque>
+      <front_brake_torque>260</front_brake_torque>
+      <back_brake_torque>260</back_brake_torque>
+      <chassis_aero_force_gain>0.63045</chassis_aero_force_gain>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d">
+      <bodyName>base_link</bodyName>
+      <topicName>base_pose_ground_truth</topicName>
+      <frameName>map</frameName>
+      <updateRate>100.0</updateRate>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">
+      <robotNamespace>/sd_twizy</robotNamespace>
+      <jointName>front_left_wheel_joint, front_right_wheel_joint, front_left_steer_joint, front_right_steer_joint, rear_left_wheel_joint, rear_right_wheel_joint</jointName>
+      <updateRate>100.0</updateRate>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
   </gazebo>
 </robot>

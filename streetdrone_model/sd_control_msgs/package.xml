@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sd_control_msgs</name>
+  <version>2.1.0</version>
+  <description>Messages to control the StreetDrone</description>
+
+  <maintainer email="sgvandijk@gmail.com">Sander van Dijk</maintainer>
+
+  <license>Apache 2</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+
+  <depend>std_msgs</depend>
+
+</package>

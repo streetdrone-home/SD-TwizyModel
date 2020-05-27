@@ -33,4 +33,4 @@ When raising an issue, please include the following headings.
 * Description: A in-depth description of the issue encountered. 
 * Severity: how does the issue impact on functionality? 
 
-The Streetdrone team and collaborating developers will monitor all issues raised and plan fixes accordingly. 
+The StreetDrone team and collaborating developers will monitor all issues raised and plan fixes accordingly. 

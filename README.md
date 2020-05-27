@@ -15,9 +15,9 @@ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `ls
 wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 sudo apt update && sudo apt upgrade
 ```
-##### - ROS packages:
+##### - Install dependencies:
 ```
-sudo apt-get install ros-kinetic-joint-state-publisher ros-kinetic-robot-state-publisher ros-kinetic-ackermann-msgs ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-twist-mux ros-kinetic-joy ros-kinetic-controller-manager ros-kinetic-robotnik-msgs ros-kinetic-velodyne-simulator ros-kinetic-effort-controllers ros-kinetic-velocity-controllers ros-kinetic-joint-state-controller ros-kinetic-gazebo-ros-control
+rosdep install --from-paths src/ --ignore-src -r -y
 
 ```
 
@@ -43,7 +43,7 @@ catkin init
 #### D. Navigate to your workspace and build the simulation
 ```
 cd ~/catkin_ws
-catkin build sd_robot sd_control sd_description
+catkin build sd_robot sd_control sd_description sd_control_msgs
 ```
 If you have previously built your workspace with catkin_make:
 Either clean your workspace with `catkin clean` and rebuild with `catkin build`
@@ -55,7 +55,9 @@ source devel/setup.bash
 #### E. Launch the simulation:
 This launches the vehicle model in Gazebo and RViz for visualizing the sensors' output.
 ```
+
 roslaunch sd_robot sd_twizy_empty.launch
+
 ```
 
 <p align="center"> 
@@ -63,31 +65,33 @@ roslaunch sd_robot sd_twizy_empty.launch
 </p>
 
 You might need to update your ignition-math version `sudo apt upgrade libignition-math2`
+You might need to update your ignition-math version `sudo apt upgrade libignition-math2`
 
-##### Display the robot only in Gazebo:
-To only launch the model in Gazebo, do:
+## Controlling the Robot
+### Joystick
+The robot supports the generic Linux
+[joystick](http://wiki.ros.org/joy) controllers. The `sd_control`
+package contains a node to turn joystick commands into control
+messages that drive the throttle and steering of the model. To use
+this, launch a simulation as described above, then run the following:
 ```
-roslaunch sd_robot sd_twizy_empty_gazebo.launch 
+roslaunch sd_control sd_twizy_control_teleop.launch
 ```
 
-##### Known Issues:
-* On Gazebo7 the model logs an error on the p-gain of the wheels' velocity controllers. This does not affect the performance of the model and has only been detected when running the gazebo-ros-control package for Gazebo7. If you choose to build and run the model in Gazebo8 with gazebo8-ros-control, the problem disappears.
+You can map specific buttons using the parameters defined in that
+launch file. For instance, the following uses the left stick for
+throttle, the right stick for steering, and right button (RB) to
+enable control on a Logitech F710 Gamepad:
+```
+roslaunch sd_control sd_twizy_control_teleop.launch enable_button:=5 throttle_axis:=1 steer_axis:=2
+```
 
-### Controlling the Robot:
-#### Joystick:
-The robot supports the generic Linux [joystick](http://wiki.ros.org/joy) controllers.  
-To publish the `cmd_vel` topic [[geometry_msgs/Twist]](http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html), clone or copy the contents of the ROS package [teleop_twist_joy](https://github.com/ros-teleop/teleop_twist_joy) at the `~/catkin_ws/src` folder of your catkin workspace. Then build the package by doing `catkin build` or `catkin_make`, depending on what you previously used to build the simulation model. After you have built the package, do: `source devel/setup.bash`  
-To launch the controller, do `roslaunch teleop_twist_joy teleop.launch`
-
-##### A. Microsoft Xbox 360 Controller for Linux:
-To control the vehicle, keep the Xbox Guide button pressed (Index 8) and use the Left Stick (Index 9) to navigate
-
-##### B. Logitech Wireless Gamepad F710 (DirectInput Mode):
-To control the vehicle, keep the Back button (Index 8) pressed and use the Start button (Index 9) to navigate
-
-#### Keyboard:
-To install the ROS package [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard), do: `sudo apt-get install ros-kinetic-teleop-twist-keyboard`.  
-To launch the ROS package, do: `rosrun teleop_twist_keyboard teleop_twist_keyboard.py `
+### Keyboard
+The simulation can also be controlled by the keyboard. To launch the sd_teleop_keyboard node, run the following:
+```
+./src/streetdrone_model/sd_control/keyboardlaunch.sh 
+```
+And follow the instructions on the terminal
 
 ### Display the robot only in rviz:
 First, make sure you have rviz installed, by doing:

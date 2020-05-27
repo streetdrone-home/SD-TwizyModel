@@ -4,10 +4,12 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <!--
+
 Copyright (c) 2020 StreetDrone Limited
 Author:  Efimia Panagiotaki
 
 All rights reserved
+
 -->
 <robot name="sd_twizy" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <gazebo reference="chassis">
@@ -149,13 +151,13 @@ All rights reserved
     <visual>
       <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/SDTwizy.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/SDTwizy_collision.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/SDTwizy_collision.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
   </link>
@@ -210,12 +212,12 @@ All rights reserved
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/VLP16_base_1.dae"/>
+        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/VLP16_base_1.dae"/>
       </geometry>
     </visual>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/VLP16_base_2.dae"/>
+        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/VLP16_base_2.dae"/>
       </geometry>
     </visual>
     <collision>
@@ -239,7 +241,7 @@ All rights reserved
     <visual>
       <origin xyz="0 0 -0.0377"/>
       <geometry>
-        <mesh filename="file:///home/fionan/AV-Software/src/vehicle_simulation/gazebo/sd_twizy_model/streetdrone_model/sd_description/meshes/VLP16_scan.dae"/>
+        <mesh filename="file:////home/efimiap2/catkin_ws/src/streetdrone_model/sd_description/meshes/VLP16_scan.dae"/>
       </geometry>
     </visual>
   </link>

@@ -3,7 +3,6 @@ This is the simulation package for the SD Twizy vehicle, containing different la
 
 ### Sensors
 LiDAR: VLP - 16 Velodyne  
-<<<<<<< HEAD
 Cameras: 8 x Blackfly S 2.3MP
 The scripts for the sensors are written based on the common scripts that exist for sensors in Gazebo.
 

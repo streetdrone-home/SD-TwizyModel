@@ -1,57 +1,57 @@
 <?xml version="1.0"?>
 
 <!--
-  Copyright (c) 2019 StreetDrone Limited
-  Author:  Efimia Panagiotaki
+Copyright (c) 2020 StreetDrone Limited
+Author:  Efimia Panagiotaki
 
-  All rights reserved
+All rights reserved
 -->
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="blackfly_camera">
     <xacro:macro name="blackfly_camera" params="frlr_prefix lrc_prefix *origin">
 
-        <joint name="${frlr_prefix}_${lrc_prefix}_camera_joint" type="fixed">
-            <axis xyz="0 1 0" />
-            <xacro:insert_block name="origin"/>
-            <parent link="base_link"/>
-            <child link="${frlr_prefix}_${lrc_prefix}_camera_link"/>
-        </joint>
+    <joint name="${frlr_prefix}_${lrc_prefix}_camera_joint" type="fixed">
+      <axis xyz="0 1 0" />
+      <xacro:insert_block name="origin"/>
+      <parent link="chassis"/>
+      <child link="${frlr_prefix}_${lrc_prefix}_camera_link"/>
+    </joint>
 
-        <!-- Camera -->
-        <link name="${frlr_prefix}_${lrc_prefix}_camera_link">
-            <collision>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                    <box size="0.026 0.026 0.0203"/>
-                </geometry>
-            </collision>
+    <!-- Camera -->
+    <link name="${frlr_prefix}_${lrc_prefix}_camera_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.026 0.026 0.0203"/>
+        </geometry>
+      </collision>
 
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                    <box size="0.026 0.026 0.0203"/>
-                </geometry>
-                <material name="red"/>
-            </visual>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.026 0.026 0.0203"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
 
-            <inertial>
-                <mass value="1e-5" />
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-            </inertial>
-        </link>
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
 
-        <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
-            so that ros and opencv can operate on the camera frame correctly -->
-        <joint name="${frlr_prefix}_${lrc_prefix}_camera_optical_joint" type="fixed">
-            <!-- these values have to be these values otherwise the gazebo camera image
-                won't be aligned properly with the frame it is supposedly originating from -->
-            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
-            <parent link="${frlr_prefix}_${lrc_prefix}_camera_link"/>
-            <child link="${frlr_prefix}_${lrc_prefix}_camera_link_optical"/>
-        </joint>
+    <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
+         so that ros and opencv can operate on the camera frame correctly -->
+    <joint name="${frlr_prefix}_${lrc_prefix}_camera_optical_joint" type="fixed">
+      <!-- these values have to be these values otherwise the gazebo camera image
+           won't be aligned properly with the frame it is supposedly originating from -->
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+      <parent link="${frlr_prefix}_${lrc_prefix}_camera_link"/>
+      <child link="${frlr_prefix}_${lrc_prefix}_camera_link_optical"/>
+    </joint>
 
-        <link name="${frlr_prefix}_${lrc_prefix}_camera_link_optical"/>
+    <link name="${frlr_prefix}_${lrc_prefix}_camera_link_optical"/>
 
         <gazebo reference="${frlr_prefix}_${lrc_prefix}_camera_link">
             <mu1>0.2</mu1>
@@ -103,6 +103,5 @@
             </sensor>
         </gazebo>
 
-    </xacro:macro>
+  </xacro:macro>
 </robot>
-

@@ -22,6 +22,8 @@
         <arg name="paused" value="false"/>
         <arg name="use_sim_time" value="true"/>
         <arg name="headless" value="false"/>
+        <arg name="verbose" value="true"/>
+        <arg name="world_name" value="$(find sd_robot)/worlds/park.world"/>
     </include>
 
     <param command="$(find xacro)/xacro '$(find sd_description)/urdf/sd_twizy.urdf.xacro' --inorder" name="robot_description"/>

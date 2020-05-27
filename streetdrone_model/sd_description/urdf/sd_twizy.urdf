@@ -330,8 +330,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -416,8 +416,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -502,8 +502,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -588,8 +588,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -674,8 +674,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -760,8 +760,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -846,8 +846,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -932,8 +932,8 @@ All rights reserved
       <camera name="head">
         <horizontal_fov>2.09</horizontal_fov>
         <image>
-          <width>1928</width>
-          <height>1208</height>
+          <width>1920</width>
+          <height>1200</height>
           <format>R8G8B8</format>
         </image>
         <clip>

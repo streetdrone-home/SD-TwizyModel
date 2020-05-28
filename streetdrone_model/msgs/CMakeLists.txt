@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(sd_control_msgs)
+project(sd_msgs)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
-  Control.msg
+  SDControl.msg
 )
 
 generate_messages(

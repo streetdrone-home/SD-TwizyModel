@@ -128,12 +128,12 @@ namespace sd_control
       std::bind(&SdControlPlugin::Update, this));
   }
 
-  void SdControlPlugin::controlCallback(const sd_control_msgs::Control & msg)
+  void SdControlPlugin::controlCallback(const sd_msgs::SDControl & msg)
   {
     std::lock_guard<std::mutex> lock{mutex_};
     control_cmd_ = msg;
-	 if (control_cmd_.throttle > 0 && control_cmd_.throttle <= 25){
-	 control_cmd_.throttle = 0; //This captures the dead pedal band on the real vehicle. 
+	 if (control_cmd_.torque > 0 && control_cmd_.torque <= 25){
+	 control_cmd_.torque = 0; //This captures the dead pedal band on the real vehicle. 
 	 }
   }
 
@@ -190,10 +190,10 @@ namespace sd_control
 
     auto throttle_ratio = 0.0;
     auto brake_ratio = 0.0;
-    if (control_cmd_.throttle > 0)
-      throttle_ratio = std::min(100.0, control_cmd_.throttle) / 100.0;
-    if (control_cmd_.throttle < 0)
-      brake_ratio = std::min(100.0, -control_cmd_.throttle) / 100.0;
+    if (control_cmd_.torque > 0)
+      throttle_ratio = std::min(100.0, control_cmd_.torque) / 100.0;
+    if (control_cmd_.torque < 0)
+      brake_ratio = std::min(100.0, -control_cmd_.torque) / 100.0;
 
     auto regen_braking_ratio = 0.025;
 

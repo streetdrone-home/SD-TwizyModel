@@ -6,7 +6,7 @@
 #include <gazebo/transport/transport.hh>
 
 #include <ros/ros.h>
-#include <sd_control_msgs/Control.h>
+#include <sd_msgs/SDControl.h>
 
 namespace sd_control
 {
@@ -58,7 +58,7 @@ namespace sd_control
 
     gazebo::common::Time last_sim_time_;
 
-    sd_control_msgs::Control control_cmd_;
+    sd_msgs::SDControl control_cmd_;
 
     std::mutex mutex_;
 
@@ -67,7 +67,7 @@ namespace sd_control
 
     void publishOdometry();
 
-    void controlCallback(const sd_control_msgs::Control & msg);
+    void controlCallback(const sd_msgs::SDControl & msg);
 
     double collisionRadius(gazebo::physics::CollisionPtr coll) const;
   };

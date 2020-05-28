@@ -1,6 +1,6 @@
 #include "sd_control/sd_teleop_joy.hpp"
 
-#include <sd_control_msgs/Control.h>
+#include <sd_msgs/SDControl.h>
 
 namespace sd_control
 {
@@ -8,7 +8,7 @@ namespace sd_control
   SdTeleopJoy::SdTeleopJoy(ros::NodeHandle * nh, ros::NodeHandle * nh_param)
   {
     joy_sub_ = nh->subscribe("joy", 1, &SdTeleopJoy::joyCallback, this);
-    control_pub_ = nh->advertise<sd_control_msgs::Control>("/sd_control", 1, true);
+    control_pub_ = nh->advertise<sd_msgs::SDControl>("/sd_control", 1, true);
 
     nh_param->param<int>("enable_button", enable_button_, 0);
     nh_param->param<int>("throttle_axis", throttle_axis_, 1);
@@ -18,8 +18,8 @@ namespace sd_control
   void SdTeleopJoy::joyCallback(sensor_msgs::Joy::ConstPtr const & joy)
   {
     if (joy->buttons[enable_button_] == 1) {
-      auto control_msg = sd_control_msgs::Control{};
-      control_msg.throttle = joy->axes[throttle_axis_] * 100;
+      auto control_msg = sd_msgs::SDControl{};
+      control_msg.torque = joy->axes[throttle_axis_] * 100;
       control_msg.steer = joy->axes[steer_axis_] * 100;
       control_pub_.publish(control_msg);
     }

@@ -71,8 +71,8 @@ if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     print(msg)
 
-    pub = rospy.Publisher('/sd_control', SDControlControl, queue_size = 1)
-    control_msg = Control()
+    pub = rospy.Publisher('/sd_control', SDControl, queue_size = 1)
+    control_msg = SDControl()
 
     rospy.init_node('teleop_twist_keyboard')
 

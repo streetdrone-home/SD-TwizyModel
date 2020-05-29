@@ -15,19 +15,15 @@ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `ls
 wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 sudo apt update && sudo apt upgrade
 ```
-##### - Install dependencies:
-```
-rosdep install --from-paths src/ --ignore-src -r -y
-
-```
 
 ### Setup your workspace:
 #### A. Create a catkin workspace:
+To setup your workspace after installing ROS Kinetic and catkin tools, do:
 ```
 source /opt/ros/kinetic/setup.bash
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
-catkin build
+catkin build # OR catkin_make
 source devel/setup.bash
 ```
 For more information, visit [create_a_workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
@@ -40,24 +36,26 @@ catkin init
 ```
 
 #### C. Clone this repository or copy its contents at your `~/catkin_ws/src` folder of the catkin workspace you just initialized.
-#### D. Navigate to your workspace and build the simulation
+#### D. Navigate to your workspace, install the dependencies and build the simulation
 ```
 cd ~/catkin_ws
-catkin build sd_robot sd_control sd_description sd_control_msgs
+rosdep install --from-paths src/ --ignore-src -r -y
+catkin build
+
+# OR catkin build sd_robot sd_control sd_description sd_control_msgs 
+# OR catkin_make if you previously built with catkin_make
 ```
-If you have previously built your workspace with catkin_make:
-Either clean your workspace with `catkin clean` and rebuild with `catkin build`
-or build the SD Twizy Gazebo packages in isolation with `catkin_make --pkg sd_robot sd_control sd_description`.
-After the built has successfully finished, do:
+
+After the built has successfully finished, source your workspace:
 ```
 source devel/setup.bash
 ```
+
 #### E. Launch the simulation:
 This launches the vehicle model in Gazebo and RViz for visualizing the sensors' output.
 ```
-
 roslaunch sd_robot sd_twizy_empty.launch
-
+# OR roslaunch sd_robot sd_twizy_worlds.launch enable_rviz:=true world:=empty
 ```
 
 <p align="center"> 
@@ -65,7 +63,11 @@ roslaunch sd_robot sd_twizy_empty.launch
 </p>
 
 You might need to update your ignition-math version `sudo apt upgrade libignition-math2`
-You might need to update your ignition-math version `sudo apt upgrade libignition-math2`
+
+### Sensors
+**LiDAR:** VLP - 16 Velodyne  
+**Cameras:** 8 x Blackfly S 2.3MP  
+The scripts for the sensors are written based on the common scripts that exist for sensors in Gazebo.
 
 ## Controlling the Robot
 ### Joystick
@@ -92,6 +94,18 @@ The simulation can also be controlled by the keyboard. To launch the sd_teleop_k
 ./src/streetdrone_model/sd_control/keyboardlaunch.sh 
 ```
 And follow the instructions on the terminal
+
+### SD-VehicleInterface
+Find it here: https://github.com/streetdrone-home/SD-VehicleInterface  
+This package is responsible for the communication between the [StreetDrone](https://streetdrone.com/) vehicles and ROS based self-driving software stacks.
+
+The interface bridges the gap between ROS kinetic and the OpenCAN vehicle interface of the StreetDrone Xenos Control Unit (XCU) integrated into the SD Twizy R&D and SD ENV200 vehicles.
+[Follow the instructions here](https://github.com/streetdrone-home/SD-VehicleInterface/blob/master/README.md)
+
+Clone or copy the SD-VehicleInterface on the `src/` of your catkin workspace, build it according to the instructions on the README and launch it alongside the simulation with:
+```
+roslaunch sd_vehicle_interface sd_vehicle_interface.launch sd_vehicle:=twizy sd_gps_imu:=none sd_simulation_mode:=true
+```
 
 ### Display the robot only in rviz:
 First, make sure you have rviz installed, by doing:

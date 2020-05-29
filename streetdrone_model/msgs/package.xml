@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>sd_msgs</name>
-  <version>3.1.0</version>
+  <version>2.2.0</version>
   <description>Messages to control the StreetDrone</description>
 
   <maintainer email="fionan@streetdrone.com">Fionan O'Sullivan</maintainer>

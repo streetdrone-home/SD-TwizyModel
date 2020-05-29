@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   tf
   nav_msgs
-  sd_control_msgs
+  sd_msgs
   rospy
 
 )

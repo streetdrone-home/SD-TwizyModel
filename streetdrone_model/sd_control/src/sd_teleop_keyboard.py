@@ -6,7 +6,7 @@ import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
 
 from geometry_msgs.msg import TwistStamped
-from sd_control_msgs.msg import Control
+from sd_msgs.msg import SDControl
 
 import sys, select, termios, tty
 
@@ -71,8 +71,8 @@ if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     print(msg)
 
-    pub = rospy.Publisher('/sd_control', Control, queue_size = 1)
-    control_msg = Control()
+    pub = rospy.Publisher('/sd_control', SDControl, queue_size = 1)
+    control_msg = SDControl()
 
     rospy.init_node('teleop_twist_keyboard')
 
@@ -117,9 +117,9 @@ if __name__=="__main__":
 
             
             if(brake):
-                control_msg.throttle = brake
+                control_msg.torque = brake
             else:
-                control_msg.throttle = torque
+                control_msg.torque = torque
             control_msg.steer = steer
             print("Throttle " , torque, " brake ", brake, " steer ", steer)
             pub.publish(control_msg)
@@ -129,7 +129,7 @@ if __name__=="__main__":
 
 
     finally:
-        control_msg.throttle = 0
+        control_msg.torque = 0
         control_msg.steer = 0
         pub.publish(control_msg)
 
